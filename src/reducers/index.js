@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
 
-// calling the default reducer to create a link
-import defaultReducer from "./default-reducer";
+import weatherReducer from "./weather-reducer";
 
-const rootReducers = combineReducers({
-  // add reducer files references here
-  default: defaultReducer
+const rootReducer = combineReducers({
+  weather: weatherReducer
 });
 
-export default rootReducers;
+export default rootReducer;

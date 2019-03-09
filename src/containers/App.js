@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import Weather from "./Weather";
 
 // calling the connect wrapper and the function created in the actions section
 import { connect } from "react-redux";
-import { defaultFunction } from "./actions";
+import { defaultFunction } from "../actions";
 
 class App extends Component {
   componentDidMount() {
@@ -13,7 +12,12 @@ class App extends Component {
   }
 
   render() {
-    return <div>React Redux Starter Template</div>;
+    return (
+      <div>
+        <div>React Redux Starter Template</div>
+        <Weather />
+      </div>
+    );
   }
 }
 
