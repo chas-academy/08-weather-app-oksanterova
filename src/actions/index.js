@@ -18,12 +18,11 @@ export const REQUEST_WEATHER = "REQUEST_WEATHER";
 function requestWeather(/* subreddit */) {
   return {
     type: REQUEST_WEATHER
-    // TODO subreddit
   };
 }
 
 export const RECEIVE_WEATHER = "RECEIVE_WEATHER";
-function receiveWeather(/*subreddit, */ weather) {
+function receiveWeather(weather) {
   return {
     type: RECEIVE_WEATHER,
     weather,
@@ -39,7 +38,7 @@ export function fetchWeather() {
     DarkSkyApi.proxy =
       "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/";
 
-    return DarkSkyApi.loadCurrent()
+    return DarkSkyApi.loadItAll()
       .then(weather => dispatch(receiveWeather(weather)))
       .catch(console.log);
   };

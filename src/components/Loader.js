@@ -27,7 +27,7 @@ const Loader = styled.div`
   transform: translateZ(0);
 
   ::after {
-    background: white;
+    background: rgb(47, 61, 78);
     width: 75%;
     height: 75%;
     border-radius: 50%;

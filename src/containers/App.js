@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Weather from "./Weather";
+import CurrentWeather from "./CurrentWeather";
+import DailyWeather from "./DailyWeather";
+import WeeklyWeather from "./WeeklyWeather";
 
 // calling the connect wrapper and the function created in the actions section
 import { connect } from "react-redux";
@@ -14,8 +16,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div>React Redux Starter Template</div>
-        <Weather />
+        <CurrentWeather />
+        <DailyWeather />
+        <WeeklyWeather />
       </div>
     );
   }
