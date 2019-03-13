@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import Flex, { FlexItem } from "styled-flex-component";
 import CurrentWeather from "./CurrentWeather";
+import TodaysWeather from "./TodaysWeather";
+import HourlyWeather from "./HourlyWeather";
 import DailyWeather from "./DailyWeather";
-import WeeklyWeather from "./WeeklyWeather";
+import { AppHeader } from "../components/Weather";
+import Loading from "../containers/Loading";
 
 // calling the connect wrapper and the function created in the actions section
 import { connect } from "react-redux";
@@ -15,11 +19,21 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <CurrentWeather />
+      <Loading>
+        <AppHeader>Weather Forecast</AppHeader>
+        <Flex justifyAround wrap>
+          <FlexItem order="1">
+            <CurrentWeather />
+          </FlexItem>
+          <FlexItem order="2">
+            <TodaysWeather />
+          </FlexItem>
+        </Flex>
+
+        <HourlyWeather />
+
         <DailyWeather />
-        <WeeklyWeather />
-      </div>
+      </Loading>
     );
   }
 }

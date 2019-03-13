@@ -35,11 +35,15 @@ export function fetchWeather() {
     dispatch(requestWeather());
 
     DarkSkyApi.apiKey = "7f616e9d851c885325537e9b0db7bc55";
+    DarkSkyApi.units = "si";
     DarkSkyApi.proxy =
       "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/";
 
     return DarkSkyApi.loadItAll()
-      .then(weather => dispatch(receiveWeather(weather)))
+      .then(weather => {
+        weather.units = DarkSkyApi.getResponseUnits();
+        return dispatch(receiveWeather(weather));
+      })
       .catch(console.log);
   };
 }

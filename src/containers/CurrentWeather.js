@@ -1,52 +1,56 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Loader from "../components/Loader";
 import Flex, { FlexItem } from "styled-flex-component";
 import {
-  CurrentWeatherSection,
-  CurrentConditionsHeader,
-  CurrentConditionsBody,
-  CurrentTime,
-  WeatherIcon,
+  WeatherSection,
+  WeatherSectionHeader,
+  WeatherSectionBody,
+  Time,
+  CurrentWeatherIcon,
   Temperature,
   WeatherSummary
 } from "../components/Weather.js";
 
-export const CurrentWeather = ({ loading, data }) => {
-  if (loading !== false) {
-    return <Loader />;
-  } else {
-    console.log(data);
-    return (
-      <CurrentWeatherSection>
-        <CurrentConditionsHeader>
-          Current Conditions
-          <CurrentTime>10:15 pm</CurrentTime>
-        </CurrentConditionsHeader>
-        <CurrentConditionsBody>
-          <Flex full>
-            <FlexItem order="1">
-              <WeatherIcon icon={data.icon} />
-            </FlexItem>
-            <FlexItem order="2">
-              <Temperature>{data.temperature}</Temperature>
-              <WeatherSummary>{data.summary}</WeatherSummary>
-              <div> Humidity: {data.humidity} % </div>
-              <div>Wind: {data.windSpeed} km/h </div>
-              <div> Humidity: {data.humidity} % </div>
-              <div> Humidity: {data.humidity} % </div>
-              <div> Humidity: {data.humidity} % </div>
-            </FlexItem>
-          </Flex>{" "}
-        </CurrentConditionsBody>
-      </CurrentWeatherSection>
-    );
-  }
+export const CurrentWeather = ({ data }) => {
+  return (
+    <WeatherSection>
+      <WeatherSectionHeader>
+        <h2>
+          Current Conditions <Time>10:15 pm</Time>
+        </h2>
+      </WeatherSectionHeader>
+      <WeatherSectionBody>
+        <Flex full>
+          <FlexItem order="1">
+            <CurrentWeatherIcon icon={data.icon} />
+          </FlexItem>
+          <FlexItem order="2">
+            <Temperature>{Math.round(data.temperature)}</Temperature>{" "}
+            <WeatherSummary>{data.summary}</WeatherSummary>
+            <div> Humidity: {Math.round(data.humidity * 100)}% </div>
+            <div>
+              Wind: {data.windDirection} {data.windSpeed} km/h{" "}
+            </div>
+            <div> Feels like: {Math.round(data.apparentTemperature)}°</div>
+            <div>
+              {" "}
+              Risk of precipitation: {Math.round(
+                data.precipProbability * 100
+              )}%{" "}
+            </div>
+            <div> Cloud cover: {data.cloudCover * 100}% </div>
+            <div> Pressure: {data.pressure} mb </div>
+            <div> Visibility: {data.visibility} km </div>
+            <div> UV Index: {data.uvIndex}</div>
+          </FlexItem>
+        </Flex>{" "}
+      </WeatherSectionBody>
+    </WeatherSection>
+  );
 };
 
 CurrentWeather.propTypes = {
-  loading: PropTypes.bool,
   data: PropTypes.shape({
     icon: PropTypes.string,
     summary: PropTypes.string,
@@ -55,10 +59,9 @@ CurrentWeather.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const loading = state.weather === undefined || state.weather.loading;
   const data = (state.weather.data || {}).currently;
 
-  return { loading: loading, data: data };
+  return { data };
 };
 
 const mapDispatchToProps = dispatch => {
