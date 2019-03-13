@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Flex, { FlexItem } from "styled-flex-component";
+import moment from "moment";
 import {
   WeatherSection,
   WeatherSectionHeader,
@@ -17,7 +18,7 @@ export const CurrentWeather = ({ data }) => {
     <WeatherSection>
       <WeatherSectionHeader>
         <h2>
-          Current Conditions <Time>10:15 pm</Time>
+          Current Conditions <Time>{moment().format("h:mm a")}</Time>
         </h2>
       </WeatherSectionHeader>
       <WeatherSectionBody>

@@ -25,16 +25,26 @@ export const WeatherSection = styled.section`
 export const WeatherSectionBody = styled.div`
   padding: 14px;
   font-family: sans-serif;
+  font-weight: 300;
   line-height: 1.5;
   height: 260px;
 `;
 
-
 export const WeatherSectionHeader = styled.div`
   color: #ebebeb;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  background-color: rgb(75, 85, 98);
+  height: 50px;
+  width: 525px;
+  line-height: 50px;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-weight: 500;
+  padding-left: 28px;
+  margin: 0;
+`;
+
+export const WeatherSectionHeader2 = styled.div`
+  color: #ebebeb;
+
   background-color: rgb(75, 85, 98);
   height: 50px;
   width: 525px;
@@ -51,22 +61,25 @@ export const HourlyWeatherIconSpan = styled(WeatherIconSpan)`
   height: 32px;
 `;
 
-
 export const HourWeatherSectionBody = styled(WeatherSectionBody)`
- width: 200px;
- height: 80px;
+  width: 200px;
+  height: 80px;
 `;
 
 export const HourWeatherSectionHeader = styled(WeatherSectionHeader)`
- width: 200px;
+  width: 200px;
+  padding: 0 14px 0 14px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 export const DailySectionHeader = styled(WeatherSectionHeader)`
- width: 300px;
+  width: 300px;
 `;
 
 export const DailySectionBody = styled(WeatherSectionBody)`
- width: 300px;
+  width: 300px;
 `;
 
 export const DailyWeatherIconSpan = styled(WeatherIconSpan)`
@@ -110,9 +123,11 @@ font-family: sans-serif;
 font-weight: 500;
 `;
 
-export const WeatherSummary = styled.span`SectionHeader
+export const WeatherSummary = styled.span`
   font-size: 1em
-  font-weight: 500;
+  font-weight: 600;
+  font-style: italic;
+  padding-bottom: 10px;
 `;
 
 export const DailySummary = styled(WeatherSummary)`
@@ -120,8 +135,7 @@ export const DailySummary = styled(WeatherSummary)`
 `;
 
 export const HourlySummary = styled(WeatherSummary)`
-padding-left: 0;
-font-weight: 400;
+  font-weight: 600;
 `;
 
 export const Temperature = styled.span`
@@ -137,7 +151,6 @@ export const Temperature = styled.span`
 export const SecondaryTemperature = styled(Temperature)`
   font-size: 1.7em;
 `;
-
 
 export const TemperatureMin = styled(SecondaryTemperature)`
   color: rgb(114, 190, 218);
@@ -155,24 +168,23 @@ export const CurrentWeatherIcon = ({ icon }) => {
 };
 
 export const HourlyWeatherIcon = ({ icon }) => {
-    return (
-      <HourlyWeatherIconSpan>
-        <ReactSkycons
-          color="#ebebeb"
-          icon={icon.replace(/-/g, "_").toUpperCase()}
-        />
-      </HourlyWeatherIconSpan>
-    );
-  };
+  return (
+    <HourlyWeatherIconSpan>
+      <ReactSkycons
+        color="#ebebeb"
+        icon={icon.replace(/-/g, "_").toUpperCase()}
+      />
+    </HourlyWeatherIconSpan>
+  );
+};
 
-  export const DailyWeatherIcon = ({ icon }) => {
-    return (
-      <DailyWeatherIconSpan>
-        <ReactSkycons
-          color="#ebebeb"
-          icon={icon.replace(/-/g, "_").toUpperCase()}
-        />
-      </DailyWeatherIconSpan>
-    );
-  };
-
+export const DailyWeatherIcon = ({ icon }) => {
+  return (
+    <DailyWeatherIconSpan>
+      <ReactSkycons
+        color="#ebebeb"
+        icon={icon.replace(/-/g, "_").toUpperCase()}
+      />
+    </DailyWeatherIconSpan>
+  );
+};

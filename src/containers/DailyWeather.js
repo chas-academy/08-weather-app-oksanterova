@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Flex, { FlexItem } from "styled-flex-component";
+import moment from "moment";
 import {
   SectionHeader,
   DailySectionHeader,
@@ -16,10 +17,16 @@ import {
 } from "../components/Weather.js";
 
 export const DailyWeatherSection = ({ weather }) => {
+  const time = moment(weather.time * 1000);
+  const sunriseTime = moment(weather.sunriseTime * 1000);
+  const sunsetTime = moment(weather.sunsetTime * 1000);
+
   return (
     <WeatherSection>
       <DailySectionHeader>
-        <Time>Wednesday, Mar 12th</Time>
+        <Time>
+          {time.format("dddd")}, {time.format("MMM Do")}
+        </Time>
       </DailySectionHeader>
       <DailySectionBody>
         <Flex full>
@@ -47,8 +54,8 @@ export const DailyWeatherSection = ({ weather }) => {
               {Math.round(weather.precipProbability * 100)}%{" "}
             </div>
             <div>Cloud cover: {Math.round(weather.cloudCover * 100)}%</div>
-            <div> Sunrise: {weather.sunriseTime}</div>
-            <div> Sunset: {weather.sunsetTime}</div>
+            <div> Sunrise: {sunriseTime.format("h:mm")}</div>
+            <div> Sunset: {sunsetTime.format("h:mm")}</div>
           </FlexItem>
         </Flex>{" "}
       </DailySectionBody>
@@ -62,7 +69,7 @@ export const DailyWeather = ({ summary, dailyWeather }) => {
       <SectionHeader>
         Week Forecast <DailySummary>{summary}</DailySummary>
       </SectionHeader>
-      <Flex justifyBetween wrap>
+      <Flex justifyEvenly wrap>
         {dailyWeather.map(weather => (
           <FlexItem>
             <DailyWeatherSection weather={weather} />

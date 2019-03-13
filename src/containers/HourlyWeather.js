@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Flex, { FlexItem } from "styled-flex-component";
+import moment from "moment";
 import {
   SectionHeader,
   WeatherSection,
@@ -15,12 +16,14 @@ import {
 } from "../components/Weather.js";
 
 export const HourlyWeatherSection = ({ weather }) => {
+  const time = moment(weather.time * 1000);
+
   return (
     <WeatherSection>
       <HourWeatherSectionHeader>
         <HourlyWeatherIcon icon={weather.icon} />
         <SecondaryTemperature>{Math.round(weather.temperature)}</SecondaryTemperature>
-        <Hours>1pm</Hours>
+        <Hours>{time.format("h a")}</Hours>
       </HourWeatherSectionHeader>
       <HourWeatherSectionBody>
         <HourlySummary>{weather.summary}</HourlySummary>
@@ -51,7 +54,7 @@ export const HourlyWeather = ({ summary, hourlyWeather }) => {
       <SectionHeader>
         Next Few Hours <DailySummary>{summary}</DailySummary>
       </SectionHeader>
-      <Flex justifyBetween wrap>
+      <Flex justifyAround wrap>
         {hourlyWeather.map(weather => (
           <FlexItem>
             <HourlyWeatherSection weather={weather} />

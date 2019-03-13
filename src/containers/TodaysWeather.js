@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Flex, { FlexItem } from "styled-flex-component";
+import moment from "moment";
 import {
   WeatherSection,
   WeatherSectionHeader,
@@ -13,39 +14,41 @@ import {
   WeatherSummary
 } from "../components/Weather.js";
 
-export const TodaysWeather = ({ data }) => {
+export const TodaysWeather = ({ weather }) => {
+  const sunriseTime = moment(weather[0].sunriseTime * 1000);
+  const sunsetTime = moment(weather[0].sunsetTime * 1000);
   return (
     <WeatherSection>
       <WeatherSectionHeader>
         <h2>
-          Today's Forecast <Time>Wednesday, Mar 12th</Time>
+          Today's Forecast <Time>{moment().format('dddd')}, {moment().format("MMM Do")}</Time>
         </h2>
       </WeatherSectionHeader>
       <WeatherSectionBody>
         <Flex full>
           <FlexItem order="1">
-            <CurrentWeatherIcon icon={data.data[0].icon} />
+            <CurrentWeatherIcon icon={weather[0].icon} />
           </FlexItem>
           <FlexItem order="2">
             <div>
               <SecondaryTemperature>
-                {Math.round(data.data[0].temperatureMax)}
+                {Math.round(weather[0].temperatureMax)}
               </SecondaryTemperature>
               {"  "}
-              <TemperatureMin>{Math.round(data.data[0].temperatureMin)}</TemperatureMin>
+              <TemperatureMin>{Math.round(weather[0].temperatureMin)}</TemperatureMin>
             </div>
-            <WeatherSummary>{data.data[0].summary}</WeatherSummary>
+            <WeatherSummary>{weather[0].summary}</WeatherSummary>
             <div>
               Risk of precipitation:{" "}
-              {Math.round(data.data[0].precipProbability * 100)}%
+              {Math.round(weather[0].precipProbability * 100)}%
             </div>
-            <div>Cloud cover: {Math.round(data.data[0].cloudCover * 100)}%</div>
-            <div> Humidity: {Math.round(data.data[0].humidity * 100)}% </div>
+            <div>Cloud cover: {Math.round(weather[0].cloudCover * 100)}%</div>
+            <div> Humidity: {Math.round(weather[0].humidity * 100)}% </div>
             <div>
-              Wind: {data.data[0].windDirection} {data.data[0].windSpeed} km/h
+              Wind: {weather[0].windDirection} {weather[0].windSpeed} km/h
             </div>
-            <div> Sunrise: {data.sunriseTime}</div>
-            <div> Sunset: {data.sunsetTime}</div>
+            <div> Sunrise: {sunriseTime.format("h:mm")}</div>
+            <div> Sunset: {sunsetTime.format("h:mm")}</div>
           </FlexItem>
         </Flex>
       </WeatherSectionBody>
@@ -64,7 +67,8 @@ TodaysWeather.propTypes = {
 const mapStateToProps = state => {
   const data = (state.weather.data || {}).daily;
 
-  return { data };
+  const weather = data.data;
+  return { weather };
 };
 
 const mapDispatchToProps = dispatch => {
