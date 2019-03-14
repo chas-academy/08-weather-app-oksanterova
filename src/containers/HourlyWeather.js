@@ -15,14 +15,17 @@ import {
   DailySummary
 } from "../components/Weather.js";
 
-export const HourlyWeatherSection = ({ weather }) => {
+export const HourlyWeatherSection = ({ weather, units }) => {
   const time = moment(weather.time * 1000);
 
   return (
     <WeatherSection>
       <HourWeatherSectionHeader>
         <HourlyWeatherIcon icon={weather.icon} />
-        <SecondaryTemperature>{Math.round(weather.temperature)}</SecondaryTemperature>
+        <SecondaryTemperature
+          temperature={weather.temperature}
+          unit={units.temperature}
+        />
         <Hours>{time.format("h a")}</Hours>
       </HourWeatherSectionHeader>
       <HourWeatherSectionBody>
@@ -48,7 +51,7 @@ WeatherSection.propTypes = {
   weather: weatherPropTypes
 };
 
-export const HourlyWeather = ({ summary, hourlyWeather }) => {
+export const HourlyWeather = ({ summary, hourlyWeather, units }) => {
   return (
     <div>
       <SectionHeader>
@@ -57,7 +60,7 @@ export const HourlyWeather = ({ summary, hourlyWeather }) => {
       <Flex justifyAround wrap>
         {hourlyWeather.map(weather => (
           <FlexItem>
-            <HourlyWeatherSection weather={weather} />
+            <HourlyWeatherSection weather={weather} units={units} />
           </FlexItem>
         ))}
       </Flex>
@@ -72,6 +75,8 @@ HourlyWeather.propTypes = {
 
 const mapStateToProps = state => {
   const data = (state.weather.data || {}).hourly;
+  const units = (state.weather.data || {}).units;
+  const summary = data.summary;
 
   const maxElements = 5;
   const hourlyWeather = data.data
@@ -79,8 +84,9 @@ const mapStateToProps = state => {
     .slice(0, maxElements);
 
   return {
-    summary: data.summary,
-    hourlyWeather: hourlyWeather
+    summary,
+    hourlyWeather,
+    units
   };
 };
 

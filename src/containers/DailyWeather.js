@@ -16,7 +16,7 @@ import {
   DailySummary
 } from "../components/Weather.js";
 
-export const DailyWeatherSection = ({ weather }) => {
+export const DailyWeatherSection = ({ weather, units }) => {
   const time = moment(weather.time * 1000);
   const sunriseTime = moment(weather.sunriseTime * 1000);
   const sunsetTime = moment(weather.sunsetTime * 1000);
@@ -35,18 +35,21 @@ export const DailyWeatherSection = ({ weather }) => {
           </FlexItem>
           <FlexItem order="2">
             <div>
-              <SecondaryTemperature>
-                {Math.round(weather.temperatureMax)}
-              </SecondaryTemperature>
+              <SecondaryTemperature
+                temperature={weather.temperatureMax}
+                unit={units.temperatureMax}
+              />
               {"  "}
-              <TemperatureMin>
-                {Math.round(weather.temperatureMin)}
-              </TemperatureMin>
+              <TemperatureMin
+                temperature={weather.temperatureMin}
+                unit={units.temperatureMin}
+              />
             </div>
             <WeatherSummary>{weather.summary}</WeatherSummary>
             <div> Humidity: {weather.humidity * 100}% </div>
             <div>
-              Wind: {weather.windDirection} {weather.windSpeed} km/h{" "}
+              Wind: {weather.windDirection} {weather.windSpeed}{" "}
+              {units.windSpeed}{" "}
             </div>
             <div>
               {" "}
@@ -63,7 +66,7 @@ export const DailyWeatherSection = ({ weather }) => {
   );
 };
 
-export const DailyWeather = ({ summary, dailyWeather }) => {
+export const DailyWeather = ({ summary, dailyWeather, units }) => {
   return (
     <div>
       <SectionHeader>
@@ -72,7 +75,7 @@ export const DailyWeather = ({ summary, dailyWeather }) => {
       <Flex justifyEvenly wrap>
         {dailyWeather.map(weather => (
           <FlexItem>
-            <DailyWeatherSection weather={weather} />
+            <DailyWeatherSection weather={weather} units={units} />
           </FlexItem>
         ))}
       </Flex>
@@ -95,12 +98,15 @@ WeatherSection.propTypes = {
 
 const mapStateToProps = state => {
   const data = (state.weather.data || {}).daily;
+  const units = (state.weather.data || {}).units;
 
   const dailyWeather = data.data;
+  const summary = data.summary;
 
   return {
-    summary: data.summary,
-    dailyWeather: dailyWeather
+    summary,
+    dailyWeather,
+    units
   };
 };
 

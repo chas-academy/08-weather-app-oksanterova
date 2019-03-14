@@ -2,11 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import ReactSkycons from "react-skycons";
 
-export const AppHeader = styled.h1`
-  display: block;
+export const AppHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(80, 91, 105);
   color: #ebebeb;
-  text-align: center;
-  padding-left: 14px;
+  height: 60px;
+  padding: 0 14px 0 14px;
+  font-size: 1.3em;
+`;
+
+export const Position = styled.span`
+  color: rgb(114, 190, 218);
+`;
+
+export const ToggleUnit = styled.button`
+  display: block;
+  width: 160px;
+  height: 40px;
+  color: rgb(114, 190, 218);
 `;
 
 export const WeatherIconSpan = styled.span`
@@ -17,7 +32,7 @@ export const WeatherIconSpan = styled.span`
 
 export const WeatherSection = styled.section`
   display: block;
-  background: rgb(80, 91, 105);
+  background-color: rgb(80, 91, 105);
   color: #ebebeb;
   margin: 14px;
 `;
@@ -119,42 +134,64 @@ export const Hours = styled(Days)`
 `;
 
 const StrongText = `
-font-family: sans-serif;
-font-weight: 500;
+  font-family: sans-serif;
+  font-weight: 500;
 `;
 
 export const WeatherSummary = styled.span`
   font-size: 1em
   font-weight: 600;
   font-style: italic;
-  padding-bottom: 10px;
 `;
 
 export const DailySummary = styled(WeatherSummary)`
   color: rgb(114, 190, 218);
+  padding-left: 10px;
 `;
 
 export const HourlySummary = styled(WeatherSummary)`
   font-weight: 600;
 `;
 
-export const Temperature = styled.span`
+export const TemperatureSpan = styled.span`
   color: rgb(218, 115, 66);
   font-size: 2em;
   ${StrongText}
-
-  ::after {
-    content: "°";
-  }
 `;
 
-export const SecondaryTemperature = styled(Temperature)`
+const SecondaryTemperatureSpan = styled(TemperatureSpan)`
   font-size: 1.7em;
 `;
 
-export const TemperatureMin = styled(SecondaryTemperature)`
+const TemperatureMinSpan = styled(TemperatureSpan)`
   color: rgb(114, 190, 218);
+  font-size: 1.7em;
+  padding-left: 10px;
 `;
+
+function formatTemperature(temperature, unit) {
+  const pretty = Math.round(temperature)
+    .toString()
+    .replace(/-/, "\u2212");
+
+  return `${pretty}°${unit.toUpperCase()}`;
+}
+
+export const Temperature = ({ temperature, unit }) => (
+  <TemperatureSpan>{formatTemperature(temperature, unit)}</TemperatureSpan>
+);
+
+export const SecondaryTemperature = ({ temperature, unit }) => (
+  <SecondaryTemperatureSpan>
+    {formatTemperature(temperature, unit)}
+  </SecondaryTemperatureSpan>
+);
+
+export const TemperatureMin = ({ temperature, unit }) => (
+  <TemperatureMinSpan>
+    {formatTemperature(temperature, unit)}
+  </TemperatureMinSpan>
+);
 
 export const CurrentWeatherIcon = ({ icon }) => {
   return (

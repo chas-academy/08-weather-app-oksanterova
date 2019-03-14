@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
-import { fetchWeather } from "./actions";
+import { fetchWeather, toggleUnits } from "./actions";
 import rootReducer from "./reducers";
 import { createGlobalStyle } from "styled-components";
 
@@ -26,10 +26,7 @@ const GlobalStyle = createGlobalStyle`
 // creating a store for the redux structure
 const store = createStore(
   rootReducer,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware 
-  )
+  applyMiddleware(thunkMiddleware, loggerMiddleware)
 );
 
 ReactDOM.render(
@@ -40,4 +37,5 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-store.dispatch(fetchWeather()).then(() => console.log(store.getState()));
+store.dispatch(toggleUnits("si"));
+//store.dispatch(fetchWeather()).then(() => console.log(store.getState()));

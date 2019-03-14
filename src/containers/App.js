@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import Flex, { FlexItem } from "styled-flex-component";
+import Header from "./Header";
 import CurrentWeather from "./CurrentWeather";
 import TodaysWeather from "./TodaysWeather";
 import HourlyWeather from "./HourlyWeather";
 import DailyWeather from "./DailyWeather";
-import { AppHeader } from "../components/Weather";
+
 import Loading from "../containers/Loading";
 
 // calling the connect wrapper and the function created in the actions section
@@ -20,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <Loading>
-        <AppHeader>Weather Forecast</AppHeader>
+        <Header />
         <Flex justifyAround wrap>
           <FlexItem order="1">
             <CurrentWeather />

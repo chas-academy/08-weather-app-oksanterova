@@ -13,7 +13,7 @@ import {
   WeatherSummary
 } from "../components/Weather.js";
 
-export const CurrentWeather = ({ data }) => {
+export const CurrentWeather = ({ data, units }) => {
   return (
     <WeatherSection>
       <WeatherSectionHeader>
@@ -27,11 +27,14 @@ export const CurrentWeather = ({ data }) => {
             <CurrentWeatherIcon icon={data.icon} />
           </FlexItem>
           <FlexItem order="2">
-            <Temperature>{Math.round(data.temperature)}</Temperature>{" "}
+            <Temperature
+              temperature={data.temperature}
+              unit={units.temperature}
+            />{" "}
             <WeatherSummary>{data.summary}</WeatherSummary>
             <div> Humidity: {Math.round(data.humidity * 100)}% </div>
             <div>
-              Wind: {data.windDirection} {data.windSpeed} km/h{" "}
+              Wind: {data.windDirection} {data.windSpeed} {units.windSpeed}{" "}
             </div>
             <div> Feels like: {Math.round(data.apparentTemperature)}°</div>
             <div>
@@ -42,7 +45,7 @@ export const CurrentWeather = ({ data }) => {
             </div>
             <div> Cloud cover: {data.cloudCover * 100}% </div>
             <div> Pressure: {data.pressure} mb </div>
-            <div> Visibility: {data.visibility} km </div>
+            <div> Visibility: {data.visibility} {units.visibility} </div>
             <div> UV Index: {data.uvIndex}</div>
           </FlexItem>
         </Flex>{" "}
@@ -61,8 +64,9 @@ CurrentWeather.propTypes = {
 
 const mapStateToProps = state => {
   const data = (state.weather.data || {}).currently;
+  const units = (state.weather.data || {}).units;
 
-  return { data };
+  return { data, units };
 };
 
 const mapDispatchToProps = dispatch => {

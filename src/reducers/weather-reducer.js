@@ -1,7 +1,4 @@
-// default reducer
-// Note: You can remove this reducer and create your own reducer
-
-import { RECEIVE_WEATHER, REQUEST_WEATHER } from "../actions";
+import { RECEIVE_WEATHER, REQUEST_WEATHER, TOGGLE_UNITS } from "../actions";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -9,6 +6,8 @@ export default (state = {}, action) => {
       return { ...state, loading: true, data: null };
     case RECEIVE_WEATHER:
       return { ...state, loading: false, data: action.weather };
+    case TOGGLE_UNITS:
+      return { ...state, units: action.units };
     default:
       return state;
   }

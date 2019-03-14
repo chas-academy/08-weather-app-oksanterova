@@ -30,18 +30,33 @@ function receiveWeather(weather) {
   };
 }
 
-export function fetchWeather() {
+export const TOGGLE_UNITS = "TOGGLE_UNITS";
+export function toggleUnits(units) {
+  return function(dispatch) {
+    dispatch({
+      type: TOGGLE_UNITS,
+      units
+    });
+
+    return dispatch(fetchWeather(units));
+  };
+}
+
+export function fetchWeather(units) {
   return function(dispatch) {
     dispatch(requestWeather());
 
-    DarkSkyApi.apiKey = "7f616e9d851c885325537e9b0db7bc55";
-    DarkSkyApi.units = "si";
-    DarkSkyApi.proxy =
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/";
+    const api = new DarkSkyApi(
+      "7f616e9d851c885325537e9b0db7bc55",
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/",
+      units,
+      "en"
+    );
 
-    return DarkSkyApi.loadItAll()
+    return api
+      .loadItAll()
       .then(weather => {
-        weather.units = DarkSkyApi.getResponseUnits();
+        weather.units = api.getResponseUnits();
         return dispatch(receiveWeather(weather));
       })
       .catch(console.log);
