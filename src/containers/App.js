@@ -30,10 +30,14 @@ class App extends Component {
             <TodaysWeather />
           </FlexItem>
         </Flex>
-
+        <Flex column center>
+        <FlexItem>
         <HourlyWeather />
-
+        </FlexItem>
+        <FlexItem>
         <DailyWeather />
+        </FlexItem>
+        </Flex>
       </Loading>
     );
   }

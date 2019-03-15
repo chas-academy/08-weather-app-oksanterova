@@ -9,6 +9,7 @@ import {
   WeatherSection,
   DailySectionBody,
   Time,
+  Title,
   DailyWeatherIcon,
   SecondaryTemperature,
   TemperatureMin,
@@ -48,8 +49,7 @@ export const DailyWeatherSection = ({ weather, units }) => {
             <WeatherSummary>{weather.summary}</WeatherSummary>
             <div> Humidity: {weather.humidity * 100}% </div>
             <div>
-              Wind: {weather.windDirection} {weather.windSpeed}{" "}
-              {units.windSpeed}{" "}
+              Wind: {weather.windDirection} {weather.windSpeed} {units.windSpeed}{" "}
             </div>
             <div>
               {" "}
@@ -70,7 +70,7 @@ export const DailyWeather = ({ summary, dailyWeather, units }) => {
   return (
     <div>
       <SectionHeader>
-        Week Forecast <DailySummary>{summary}</DailySummary>
+        <Title>Week Forecast</Title> <DailySummary>{summary}</DailySummary>
       </SectionHeader>
       <Flex justifyEvenly wrap>
         {dailyWeather.map(weather => (
@@ -100,7 +100,8 @@ const mapStateToProps = state => {
   const data = (state.weather.data || {}).daily;
   const units = (state.weather.data || {}).units;
 
-  const dailyWeather = data.data;
+  const dailyWeather = data.data
+
   const summary = data.summary;
 
   return {

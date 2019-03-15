@@ -9,6 +9,7 @@ import {
   HourWeatherSectionHeader,
   HourWeatherSectionBody,
   Hours,
+  Title,
   HourlyWeatherIcon,
   SecondaryTemperature,
   HourlySummary,
@@ -55,7 +56,8 @@ export const HourlyWeather = ({ summary, hourlyWeather, units }) => {
   return (
     <div>
       <SectionHeader>
-        Next Few Hours <DailySummary>{summary}</DailySummary>
+        <Title>Next Few Hours</Title>
+        <DailySummary>{summary}</DailySummary>
       </SectionHeader>
       <Flex justifyAround wrap>
         {hourlyWeather.map(weather => (

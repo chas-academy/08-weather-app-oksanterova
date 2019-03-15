@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunkMiddleware from "redux-thunk";
 import { createLogger } from "redux-logger";
-import { fetchWeather, toggleUnits } from "./actions";
+import { toggleUnits } from "./actions";
 import rootReducer from "./reducers";
 import { createGlobalStyle } from "styled-components";
 
@@ -38,4 +38,3 @@ ReactDOM.render(
 );
 
 store.dispatch(toggleUnits("si"));
-//store.dispatch(fetchWeather()).then(() => console.log(store.getState()));

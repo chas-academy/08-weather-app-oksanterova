@@ -8,6 +8,7 @@ import {
   WeatherSectionHeader,
   WeatherSectionBody,
   Time,
+  Title,
   CurrentWeatherIcon,
   SecondaryTemperature,
   TemperatureMin,
@@ -20,12 +21,12 @@ export const TodaysWeather = ({ weather, units }) => {
   return (
     <WeatherSection>
       <WeatherSectionHeader>
-        <h2>
+        <Title>
           Today's Forecast{" "}
           <Time>
             {moment().format("dddd")}, {moment().format("MMM Do")}
           </Time>
-        </h2>
+        </Title>
       </WeatherSectionHeader>
       <WeatherSectionBody>
         <Flex full>

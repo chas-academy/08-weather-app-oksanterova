@@ -11,6 +11,18 @@ export const AppHeader = styled.div`
   height: 60px;
   padding: 0 14px 0 14px;
   font-size: 1.3em;
+
+  @media (max-width: 800px) {
+    font-size: 1em;
+  }
+`;
+
+export const Title = styled.span`
+  font-size: 1.3em;
+
+  @media (max-width: 800px) {
+    font-size: 1em;
+  }
 `;
 
 export const Position = styled.span`
@@ -22,12 +34,18 @@ export const ToggleUnit = styled.button`
   width: 160px;
   height: 40px;
   color: rgb(114, 190, 218);
+  margin-left: 10px;
 `;
 
 export const WeatherIconSpan = styled.span`
   display: block;
   width: 128px;
   height: 64px;
+
+  @media (max-width: 800px) {
+    width: 80px;
+    height: 40px;
+  }
 `;
 
 export const WeatherSection = styled.section`
@@ -41,8 +59,13 @@ export const WeatherSectionBody = styled.div`
   padding: 14px;
   font-family: sans-serif;
   font-weight: 300;
+  font-size: 1em;
   line-height: 1.5;
   height: 260px;
+
+  @media (max-width: 800px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const WeatherSectionHeader = styled.div`
@@ -55,19 +78,10 @@ export const WeatherSectionHeader = styled.div`
   font-weight: 500;
   padding-left: 28px;
   margin: 0;
-`;
 
-export const WeatherSectionHeader2 = styled.div`
-  color: #ebebeb;
-
-  background-color: rgb(75, 85, 98);
-  height: 50px;
-  width: 525px;
-  line-height: 50px;
-  font-family: "Helvetica Neue", Helvetica, Arial;
-  font-weight: 500;
-  padding: 0 14px 0 14px;
-  margin: 0;
+  @media (max-width: 800px) {
+    width: 300px;
+  }
 `;
 
 export const HourlyWeatherIconSpan = styled(WeatherIconSpan)`
@@ -101,18 +115,26 @@ export const DailyWeatherIconSpan = styled(WeatherIconSpan)`
   display: block;
   width: 80px;
   height: 40px;
+
+  @media (max-width: 800px) {
+    width: 65px;
+    height: 32px;
+  }
 `;
 
 export const SectionHeader = styled.div`
   color: #ebebeb;
-  display: block;
+  display: flex;
+  flex-flow: row-wrap;
   height: 50px;
-  line-height: 50px;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 1.3em;
   font-family: "Helvetica Neue", Helvetica, Arial;
   padding-left: 14px;
-  margin: 0;
+
+  @media (max-width: 800px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const Time = styled.span`
@@ -120,17 +142,29 @@ export const Time = styled.span`
   padding-left: 7px;
   font-weight: 400;
   font-size: 20px;
+
+  @media (max-width: 800px) {
+    font-size: 16px;
+  }
 `;
 
 export const Days = styled(Time)`
   font-weight: 500;
   font-size: 18px;
+
+  @media (max-width: 800px) {
+    font-size: 16px;
+  }
 `;
 
 export const Hours = styled(Days)`
   color: #ebebeb;
   font-weight: 300;
   font-size: 18px;
+
+  @media (max-width: 800px) {
+    font-size: 16px;
+  }
 `;
 
 const StrongText = `
@@ -139,14 +173,18 @@ const StrongText = `
 `;
 
 export const WeatherSummary = styled.span`
-  font-size: 1em
+  font-size: 1em;
   font-weight: 600;
   font-style: italic;
+
+  @media (max-width: 800px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const DailySummary = styled(WeatherSummary)`
   color: rgb(114, 190, 218);
-  padding-left: 10px;
+  padding: 5px 0 0 10px;
 `;
 
 export const HourlySummary = styled(WeatherSummary)`
