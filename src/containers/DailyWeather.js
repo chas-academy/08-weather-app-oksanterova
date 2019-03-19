@@ -47,9 +47,10 @@ export const DailyWeatherSection = ({ weather, units }) => {
               />
             </div>
             <WeatherSummary>{weather.summary}</WeatherSummary>
-            <div> Humidity: {weather.humidity * 100}% </div>
+            <div> Humidity: {Math.round(weather.humidity * 100)}% </div>
             <div>
-              Wind: {weather.windDirection} {weather.windSpeed} {units.windSpeed}{" "}
+              Wind: {weather.windDirection} {weather.windSpeed}{" "}
+              {units.windSpeed}{" "}
             </div>
             <div>
               {" "}
@@ -100,7 +101,7 @@ const mapStateToProps = state => {
   const data = (state.weather.data || {}).daily;
   const units = (state.weather.data || {}).units;
 
-  const dailyWeather = data.data
+  const dailyWeather = data.data;
 
   const summary = data.summary;
 
