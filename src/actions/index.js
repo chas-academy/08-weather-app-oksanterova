@@ -15,7 +15,7 @@ export function defaultFunction() {
 }
 
 export const REQUEST_WEATHER = "REQUEST_WEATHER";
-function requestWeather(/* subreddit */) {
+function requestWeather() {
   return {
     type: REQUEST_WEATHER
   };
@@ -46,19 +46,34 @@ export function fetchWeather(units) {
   return function(dispatch) {
     dispatch(requestWeather());
 
-    const api = new DarkSkyApi(
-      "7f616e9d851c885325537e9b0db7bc55",
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/",
-      units,
-      "en"
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        fetchWeatherByCoords(position.coords);
+      },
+      function(error) {
+        console.log(error);
+        fetchWeatherByCoords({
+          latitude: 59.305906699999994,
+          longitude: 18.150343
+        });
+      }
     );
 
-    return api
-      .loadItAll()
-      .then(weather => {
-        weather.units = api.getResponseUnits();
-        return dispatch(receiveWeather(weather));
-      })
-      .catch(console.log);
+    function fetchWeatherByCoords(coords) {
+      const api = new DarkSkyApi(
+        "7f616e9d851c885325537e9b0db7bc55",
+        "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7f616e9d851c885325537e9b0db7bc55/",
+        units,
+        "en"
+      );
+
+      return api
+        .loadItAll("", coords)
+        .then(weather => {
+          weather.units = api.getResponseUnits();
+          return dispatch(receiveWeather(weather));
+        })
+        .catch(console.log);
+    }
   };
 }
